@@ -1,0 +1,19 @@
+name: build container
+run-name: building container
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Run podman build
+        run: podman build -t nextcloud .
+      - name: Push image to ghcr.io
+        run: podman push --creds=${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} nextcloud ghcr.io/<username>/nextcloud/base
