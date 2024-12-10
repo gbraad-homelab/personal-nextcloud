@@ -9,3 +9,5 @@ RUN dnf install -y php php-fpm php-mysqlnd php-bcmath \
     php-gmp php-pecl-apcu mod_ssl hostname \
     && dnf clean all \
     && rm -rf /var/cache/yum
+
+ENTRYPOINT ["/sbin/init"]
