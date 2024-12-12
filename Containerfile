@@ -19,4 +19,7 @@ RUN dnf install -y php php-fpm php-mysqlnd php-bcmath \
     && dnf clean all \
     && rm -rf /var/cache/yum
 
+RUN systemctl enable httpd
+
+# systemd
 ENTRYPOINT ["/sbin/init"]
