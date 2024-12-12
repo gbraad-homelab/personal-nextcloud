@@ -3,6 +3,15 @@ ARG BASE_VERSION="40"
 
 FROM ${BASE_IMAGE}:${BASE_VERSION} AS base
 
+# install tailscale
+RUN dnf config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo \
+    && dnf install -y \
+        tailscale \
+    && dnf clean all \
+    && rm -rf /var/cache/yum \
+    && mkdir -p /var/run/tailscale /var/cache/tailscale /var/lib/tailscale
+
+# php
 RUN dnf install -y php php-fpm php-mysqlnd php-bcmath \
     php-gd php-intl php-ldap php-mbstring php-pdo \
     php-process php-soap php-opcache php-xml \
