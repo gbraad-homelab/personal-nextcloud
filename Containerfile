@@ -1,5 +1,5 @@
 ARG BASE_IMAGE="quay.io/fedora/fedora"
-ARG BASE_VERSION="40"
+ARG BASE_VERSION="41"
 
 FROM ${BASE_IMAGE}:${BASE_VERSION} AS base
 
