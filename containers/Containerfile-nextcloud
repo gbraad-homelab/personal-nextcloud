@@ -1,0 +1,11 @@
+FROM ghcr.io/gbraad-homelab/nextcloud/base:latest
+
+# install tailscale
+RUN curl -fsSL https://download.nextcloud.com/server/releases/nextcloud-30.0.4.tar.bz2 -o /tmp/nextcloud.tar.bz2 \
+    && tar -xjf /tmp/nextcloud.tar.bz2 --strip-components=1 -C /var/www/html/ \
+    && rm -f /tmp/nextcloud.tar.bz2 \
+    && chown apache /var/www/html/apps/ \
+    && chown apache /var/www/html/config/
+
+# systemd
+ENTRYPOINT ["/sbin/init"]

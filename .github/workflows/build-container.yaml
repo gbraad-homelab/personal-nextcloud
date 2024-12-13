@@ -1,5 +1,5 @@
-name: build container
-run-name: building container
+name: build containers
+run-name: building containers
 on:
   workflow_dispatch:
 jobs:
@@ -13,7 +13,11 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - name: Run podman build
-        run: podman build -t nextcloud .
-      - name: Push image to ghcr.io
+      - name: Run podman build - base
+        run: podman build -t ghcr.io/gbraad-homelab/nextcloud/base -f containers/Containerfile-base .
+      - name: Run podman build - nextcloud
+        run: podman build -t ghcr.io/gbraad-homelab/nextcloud/hub9 -f containers/Containerfile-nextcloud .
+      - name: Push image to ghcr.io - base
         run: podman push --creds=${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} nextcloud ghcr.io/gbraad-homelab/nextcloud/base
+      - name: Push image to ghcr.io - nextcloud
+        run: podman push --creds=${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} nextcloud ghcr.io/gbraad-homelab/nextcloud/hub9
