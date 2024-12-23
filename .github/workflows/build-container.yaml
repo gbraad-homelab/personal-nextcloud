@@ -13,11 +13,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - name: Run podman build - base
-        run: podman build -t ghcr.io/gbraad-homelab/nextcloud/base -f containers/Containerfile-base .
       - name: Run podman build - nextcloud
-        run: podman build -t ghcr.io/gbraad-homelab/nextcloud/hub9 -f containers/Containerfile-nextcloud .
-      - name: Push image to ghcr.io - base
-        run: podman push --creds=${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} ghcr.io/gbraad-homelab/nextcloud/base
+        run: podman build -t ghcr.io/gbraad-homelab/nextcloud/hub9 -f containers/Containerfile .
       - name: Push image to ghcr.io - nextcloud
         run: podman push --creds=${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} ghcr.io/gbraad-homelab/nextcloud/hub9
