@@ -1,5 +1,5 @@
-name: build containers (bootc)
-run-name: building containers (bootc)
+name: build container (bootc)
+run-name: building container (bootc)
 on:
   workflow_dispatch:
 jobs:
@@ -13,13 +13,13 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - name: Run podman build - nextcloud
+      - name: Run podman build - nextcloud (bootc)
         run: |
-          podman build -t ghcr.io/gbraad-homelab/nextcloud/hub9-bootc \
+          podman build -t ghcr.io/gbraad-homelab/nextcloud-bootc \
             --build-arg=BASE_IMAGE="ghcr.io/gbraad-homelab/private-base/bootc" \
             --build-arg=BASE_VERSION="latest" \
             -f containers/Containerfile .
-      - name: Push image to ghcr.io - nextcloud
+      - name: Push image to ghcr.io - nextcloud (bootc)
         run: |
           podman push --creds=${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} \
-            ghcr.io/gbraad-homelab/nextcloud/hub9-bootc
+            ghcr.io/gbraad-homelab/nextcloud-bootc
