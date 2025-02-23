@@ -1,7 +1,10 @@
 name: build disk image (bootc)
 run-name: build disk image (bootc)
+
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 2 */2 * *"
 
 env:
     IMAGE_NAME: ghcr.io/gbraad-homelab/nextcloud-bootc:latest 
